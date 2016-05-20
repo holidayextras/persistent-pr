@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.post('/hook', function (req, res) {
   console.log(req.body);
 
-  if (req.body.ref === 'refs/heads/' + sourceBranch) {
+  if (req.body.ref === 'refs/heads/' + sourceBranch && req.repository.full_name === [ process.env.REPO_OWNER, process.env.REPO_NAME ].join('/')) {
     github.repos.getContent({
       user: process.env.REPO_OWNER,
       repo: process.env.REPO_NAME,
